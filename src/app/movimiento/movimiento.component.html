@@ -1,0 +1,87 @@
+<h1 *ngIf="ingreso">Nuevo ingreso</h1>
+<h1 *ngIf="egreso">Nuevo egreso</h1>
+<div class="contenedor-formulario">
+    <form [formGroup]="formularioRegistro" (ngSubmit)="onSubmit()" id="frmMovimiento" class="frmMovimiento">
+        <mat-card class="card-formulario align-left">
+            <mat-card-header>
+                <mat-card-title>Valores</mat-card-title>
+                <mat-card-subtitle>Ingrese valores de factura</mat-card-subtitle>
+            </mat-card-header>
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Subtotal</mat-label>
+                <input matInput type="number" autocomplete="false" formControlName="subtotal" class="campo-right-align"
+                    (keyup)="calcularValores($event)">
+                <span matPrefix>$&nbsp;</span>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="half-width">
+                <mat-label>IVA {{iva}}%</mat-label>
+                <input matInput type="number" formControlName="iva" class="campo-right-align"
+                    (keyup)="recalcularTotal($event)">
+                <span matPrefix>$&nbsp;</span>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="half-width">
+                <mat-label>Total</mat-label>
+                <input matInput type="number" formControlName="total" class="campo-right-align" autocomplete="false">
+                <span matPrefix>$&nbsp;</span>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>N&uacute;mero de comprobante</mat-label>
+                <input matInput type="text" formControlName="nroComprobante">
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Concepto</mat-label>
+                <textarea matInput formControlName="concepto"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Fecha</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="fecha"> 
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker disabled="false"></mat-datepicker>
+            </mat-form-field>
+        </mat-card>
+        <mat-card class="card-formulario align-left">
+            <mat-card-header>
+                <mat-card-title>Datos cliente</mat-card-title>
+                <mat-card-subtitle>Informaci&oacute;n cliente</mat-card-subtitle>
+            </mat-card-header>
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>RUC/C&eacute;dula</mat-label>
+                <input matInput type="number" class="campo-normal" maxlength="13" formControlName="ruc">
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label *ngIf="ingreso">Cliente</mat-label>
+                <mat-label *ngIf="egreso">Proveedor</mat-label>
+                <input matInput type="text" formControlName="clienteProveedor">
+            </mat-form-field>
+        </mat-card>
+        <mat-card class="card-formulario align-left">
+            <mat-card-header>
+                <mat-card-title>Retenciones</mat-card-title>
+                <mat-card-subtitle>Valores retenidos por IR o IVA</mat-card-subtitle>
+            </mat-card-header>
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>IVA</mat-label>
+                <input matInput type="number" class="campo-right-align" autocomplete="false" maxlength="6"
+                    formControlName="retencionIVA">
+                <span matPrefix>$&nbsp;</span>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>IR (Impuesto a la renta)</mat-label>
+                <input matInput type="number" class="campo-right-align" autocomplete="false" maxlength="6"
+                    formControlName="retencionIR">
+                <span matPrefix>$&nbsp;</span>
+            </mat-form-field>
+        </mat-card>
+        <div class="card-botones">
+            <button mat-raised-button color="primary" type="submit">
+                <mat-icon aria-hidden="false" aria-label="Guardar">save</mat-icon>Guardar
+            </button>
+            <button mat-raised-button type="reset" class="btn-margen">
+                <mat-icon aria-hidden="false" aria-label="Limpiar">cancel</mat-icon>Limpiar
+            </button>
+            <button mat-raised-button color="accent" class="btn-margen" routerLink="/" >
+                <mat-icon aria-hidden="false" aria-label="Limpiar">close</mat-icon>Salir
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,176 @@
+<div layout=”row”>
+  <button mat-icon-button aria-label="Anterior">
+    <mat-icon>arrow_left</mat-icon>
+  </button>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker touchUi startView="year"></mat-datepicker>
+  </mat-form-field>
+
+  <button mat-icon-button aria-label="Siguiente">
+    <mat-icon>arrow_right</mat-icon>
+  </button>
+</div>
+<div class="card-container row">
+  <mat-card class="tarjeta-dashboard">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <span class="material-icons verde" title="Egresos">
+          arrow_circle_up
+        </span>
+      </div>
+      <mat-card-title>Ingresos</mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        <span matPrefix>$&nbsp;</span>{{totalIngresos}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-mini-fab color="basic" aria-label="Ingresos" routerLink="/movimiento" (click)="crearIngreso()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-actions>
+
+  </mat-card>
+  <mat-card class="tarjeta-dashboard">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <span class="material-icons naranja" title="Egresos">
+          arrow_circle_down
+        </span>
+      </div>
+      <mat-card-title>Egresos</mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        <span matPrefix>$&nbsp;</span>{{totalEgresos}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-mini-fab color="basic" routerLink="/movimiento" aria-label="Egresos" (click)="crearEgreso()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card class="tarjeta-dashboard">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <span class="material-icons turqueza" title="Egresos">
+          account_balance_wallet
+        </span>
+      </div>
+      <mat-card-title>Balance</mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        <span matPrefix>$&nbsp;</span>{{balance}}
+      </p>
+    </mat-card-content>
+
+  </mat-card>
+  <mat-card class="tarjeta-dashboard">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <span class="material-icons marron" title="Egresos">
+          account_balance
+        </span>
+      </div>
+      <mat-card-title>Inversiones</mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        <span matPrefix>$&nbsp;</span>{{inversion}}
+      </p>
+    </mat-card-content>
+
+  </mat-card>
+</div>
+<!--Condiciones tabla-->
+<div class="flexbox-container">
+  <div class="controles">
+    <h2 class="titulo-tabla">Filtros</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Mes</mat-label>
+      <mat-select [(value)]="mesSeleccionado">
+        <mat-option [value]="mes.valor" *ngFor="let mes of meses">
+          {{mes.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="tabla-reporte">
+    <div class="contenedor-tabla">
+      <h2 class="titulo-tabla">Reporte de movimientos</h2>
+      <div *ngIf="loading" class="card-loading">
+        <mat-progress-bar mode="query"></mat-progress-bar>
+      </div>
+      <div class="card-container tabla-reporte" *ngIf="!loading">
+        <table mat-table [dataSource]="movimientos" matSort class="mat-elevation-z8">
+          <ng-container matColumnDef="tipo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+            <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="ruc">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> RUC / C&eacute;dula </th>
+            <td mat-cell *matCellDef="let element">{{element.ruc}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="cliente">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+            <td mat-cell *matCellDef="let element">{{element.clienteProveedor}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+            <td mat-cell *matCellDef="let element"> {{element.fecha.toDate() | date: 'dd/MM/yyyy'}} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="subtotal">
+            <th mat-header-cell *matHeaderCellDef> Subtotal </th>
+            <td mat-cell *matCellDef="let element"> {{element.subtotal | currency }} </td>
+          </ng-container>
+
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="iva">
+            <th mat-header-cell *matHeaderCellDef> IVA </th>
+            <td mat-cell *matCellDef="let element"> {{element.iva | currency }} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+            <td mat-cell *matCellDef="let element"> {{element.total | currency }} </td>
+          </ng-container>
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button aria-label="Eliminar" matTooltip="Eliminar movimiento"
+                [class.selected]="element === movimientoSeleccionado" (click)="eliminarMovimiento(element )">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <mat-paginator class="completo" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+      </div>
+
+    </div>
+  </div>
+</div>

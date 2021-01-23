@@ -1,0 +1,135 @@
+.row {
+  display: grid;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 5px;
+}
+
+.tarjeta-dashboard {}
+
+.titulo-tabla {
+  float: left;
+  margin-top: 1em;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.tabla-reporte {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  text-align: left;
+}
+
+.completo {
+  width: 100%;
+}
+
+.example-header-image {
+  background-size: cover;
+}
+
+.verde {
+  color: #A7ED05;
+}
+
+.naranja {
+  color: #F21F1F
+}
+
+.turqueza {
+color: #74F7C1;
+}
+
+.marron {
+  color: #FAA555
+}
+
+.flexbox-container {
+  display: -ms-flex;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.controles {
+  width: 20%;
+  margin-right: 2px;
+}
+
+.tabla-reporte {
+  width: 100%;
+}
+@media only screen and (max-width: 600px) {
+  .row {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .tarjeta-dashboard {
+    margin: 2px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .contenedor-tabla, .controles {
+    display: none;
+  }
+  .mat-table {
+    border: 0;
+    vertical-align: middle
+  }
+  .mat-table caption {
+    font-size: 1em;
+  }
+  /*  Enable this to hide header
+   .mat-table .mat-header-cell {
+     
+     border: 10px solid;
+     clip: rect(0 0 0 0);
+     height: 1px;
+     margin: -1px;
+     padding: 0;
+     position: absolute;
+     width: 1px;
+   }
+  
+  .mat-table .mat-row {
+    border-bottom: 5px solid #ddd;
+    display: block;
+  } */
+  /*
+   .mat-table .mat-row:nth-child(even) {background: #CCC}
+   .mat-table .mat-row:nth-child(odd) {background: #FFF}
+   */
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    height: 30px;
+    margin-bottom: 4%;
+  }
+  .mat-table .mat-cell:before {
+    /*
+     * aria-label has no advantage, it won't be read inside a table
+     content: attr(aria-label);
+     */
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: .85em;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: 0;
+  }
+  .mat-table .mat-cell:first-child {
+    margin-top: 4%;
+  }
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}

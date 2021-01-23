@@ -1,0 +1,53 @@
+input.campo-normal::-webkit-outer-spin-button, input.campo-normal::-webkit-inner-spin-button, input.campo-right-align::-webkit-outer-spin-button, input.campo-right-align::-webkit-inner-spin-button {
+    display: none;
+}
+
+.campo-right-align {
+    text-align: right;
+}
+
+input.campo-right-align {
+    -moz-appearance: textfield;
+}
+
+.frmMovimiento {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.half-width {
+    width: 50%;
+}
+
+.contenedor-formulario {
+    display: inline-block;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.card-formulario {
+    margin-bottom: 1em;
+}
+
+.card-botones>button {
+    width: 30%;
+}
+
+.btn-margen {
+    margin-left: 1em;
+}
+
+@media only screen and (max-width: 600px) {
+    .card-botones>button {
+        width: 100%;
+        margin-bottom: 1em;
+        margin-left: 0;
+    }
+}
